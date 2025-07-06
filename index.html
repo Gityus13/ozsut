@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OZSUT - Authentic Azerbaijani & Turkish Cuisine</title>
+    <link rel="icon" type="image/x-icon" href="https://cdn.brandfetch.io/idJvRhJHkS/w/1895/h/1895/theme/dark/icon.jpeg?c=1dxbfHSJFAPEGdCLU4o5B">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -50,7 +51,29 @@
             width: 100%;
         }
 
-        /* New Animations */
+        /* Enhanced Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
         @keyframes cooking {
             0% { transform: scale(1) rotate(0deg); }
             25% { transform: scale(1.05) rotate(2deg); }
@@ -83,7 +106,33 @@
             100% { transform: translateY(0) rotate(0deg); }
         }
 
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
         /* Animation Classes */
+        .animate {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+        }
+
+        .animate-fadeIn {
+            animation-name: fadeIn;
+        }
+
+        .animate-slideUp {
+            animation-name: slideUp;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
         .animate-cooking {
             animation: cooking 2s ease-in-out infinite;
         }
@@ -122,22 +171,78 @@
 
         .animate-menu-item:hover {
             transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(234, 179, 8, 0.2);
+        }
+
+        .animate-dish-card {
+            transition: all 0.3s ease;
+        }
+
+        .animate-dish-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
         .animate-dish-card:hover img {
             animation: cooking 1s ease-in-out;
         }
 
+        .animate-gallery-item {
+            transition: all 0.5s ease;
+        }
+
+        .animate-gallery-item:hover {
+            transform: scale(1.05) rotate(2deg);
+            z-index: 10;
+        }
+
         .hero h1 {
-            animation: ingredientDrop 1s ease-out forwards;
+            animation: slideUp 1s ease-out forwards;
         }
 
         .hero p {
-            animation: ingredientDrop 1.2s ease-out forwards;
+            animation: slideUp 1.2s ease-out forwards;
         }
 
         .hero a {
-            animation: ingredientDrop 1.4s ease-out forwards;
+            animation: slideUp 1.4s ease-out forwards;
+        }
+
+        .animate-btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .animate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(234, 179, 8, 0.3);
+        }
+
+        .animate-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .animate-btn::after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: linear-gradient(
+                to right,
+                rgba(255,255,255,0) 0%,
+                rgba(255,255,255,0.8) 50%,
+                rgba(255,255,255,0) 100%
+            );
+            transform: translateX(-100%);
+        }
+
+        .animate-btn:hover::after {
+            animation: shimmer 1s ease;
         }
     </style>
 </head>
@@ -146,7 +251,7 @@
     <nav class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="#" class="flex items-center space-x-2">
-                <img src="https://via.placeholder.com/50" alt="OZSUT Logo" class="h-10 w-10 rounded-full animate-chef-hat">
+                <img src="https://cdn.brandfetch.io/idJvRhJHkS/w/1895/h/1895/theme/dark/icon.jpeg?c=1dxbfHSJFAPEGdCLU4o5B" alt="OZSUT Logo" class="h-10 w-10 rounded-full animate-chef-hat">
                 <span class="text-2xl font-bold text-yellow-600 font-serif">OZSUT</span>
             </a>
             
@@ -189,8 +294,8 @@
             <h1 class="text-4xl md:text-6xl font-bold mb-6 font-serif">OZSUT</h1>
             <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Experience the authentic flavors of Azerbaijan and Turkey in every bite</p>
             <div class="flex flex-col md:flex-row justify-center gap-4">
-                <a href="#menu" class="bg-yellow-600 hover:bg-yellow-700 text-white px-8 py-3 rounded-full font-semibold transition duration-300">View Menu</a>
-                <a href="#contact" class="border-2 border-white hover:bg-white hover:text-black text-white px-8 py-3 rounded-full font-semibold transition duration-300">Reservations</a>
+                <a href="#menu" class="bg-yellow-600 hover:bg-yellow-700 text-white px-8 py-3 rounded-full font-semibold animate-btn">View Menu</a>
+                <a href="#contact" class="border-2 border-white hover:bg-white hover:text-black text-white px-8 py-3 rounded-full font-semibold animate-btn">Reservations</a>
             </div>
         </div>
         <a href="#about" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white text-4xl floating-btn">
@@ -199,7 +304,7 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-white">
+    <section id="about" class="py-20 bg-white animate animate-slideUp">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-serif">Our Story</h2>
@@ -258,7 +363,7 @@
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Dish 1 -->
-                <div class="dish-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                <div class="dish-card bg-white rounded-lg overflow-hidden shadow-md animate-dish-card">
                     <div class="relative">
                         <img src="https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1488&q=80" alt="Dolma" class="w-full h-48 object-cover animate-cooking">
                         <div class="absolute top-0 left-0 right-0 h-10 animate-steam"></div>
@@ -373,7 +478,7 @@
             </div>
             
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md animate-gallery-item">
                     <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Food 1" class="w-full h-full object-cover transition duration-300 hover:scale-110 animate-plate-spin">
                 </div>
                 <div class="gallery-item overflow-hidden rounded-lg shadow-md">
@@ -586,7 +691,7 @@
 
     <!-- Map Section -->
     <div class="h-96 w-full">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.428490145665!2d49.85175681535478!3d40.37719087936986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d079efb5163%3A0xc20aa51a5f0b5e01!2sBaku!5e0!3m2!1sen!2saz!4v1623251234567!5m2!1sen!2saz" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d770.4214287037009!2d49.88579755763143!3d40.38094724881783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d7193bdec4b%3A0x809ed7a1e3b45b24!2zw5Z6c8O8dCBBxJ8gxZ_JmWjJmXIgRsmZdnZhcsmZbMmZciBNZXlkYW7EsQ!5e0!3m2!1sen!2saz!4v1751791451804!5m2!1sen!2saz" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
 
     <!-- Footer -->
@@ -728,5 +833,4 @@
             observer.observe(el);
         });
     </script>
-<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=YUSAI/ozsut" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
 </html>
