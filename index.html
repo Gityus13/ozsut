@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OZSUT - Authentic Azerbaijani & Turkish Cuisine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .dish-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .floating-btn {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .menu-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: #eab308;
+            transition: width 0.3s ease;
+        }
+        
+        .menu-item:hover::before {
+            width: 100%;
+        }
+
+        /* New Animations */
+        @keyframes cooking {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.05) rotate(2deg); }
+            50% { transform: scale(1) rotate(0deg); }
+            75% { transform: scale(1.05) rotate(-2deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        @keyframes steam {
+            0% { opacity: 0; transform: translateY(0) scale(0.8); }
+            50% { opacity: 1; transform: translateY(-10px) scale(1); }
+            100% { opacity: 0; transform: translateY(-20px) scale(1.2); }
+        }
+
+        @keyframes plateSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes ingredientDrop {
+            0% { transform: translateY(-50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes chefHat {
+            0% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-5px) rotate(5deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(-5px) rotate(-5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        /* Animation Classes */
+        .animate-cooking {
+            animation: cooking 2s ease-in-out infinite;
+        }
+
+        .animate-steam {
+            position: relative;
+        }
+
+        .animate-steam::after {
+            content: "";
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: steam 3s ease-out infinite;
+        }
+
+        .animate-plate-spin {
+            animation: plateSpin 20s linear infinite;
+        }
+
+        .animate-ingredient-drop {
+            animation: ingredientDrop 0.5s ease-out forwards;
+        }
+
+        .animate-chef-hat {
+            animation: chefHat 3s ease-in-out infinite;
+        }
+
+        .animate-menu-item {
+            transition: all 0.3s ease;
+        }
+
+        .animate-menu-item:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .animate-dish-card:hover img {
+            animation: cooking 1s ease-in-out;
+        }
+
+        .hero h1 {
+            animation: ingredientDrop 1s ease-out forwards;
+        }
+
+        .hero p {
+            animation: ingredientDrop 1.2s ease-out forwards;
+        }
+
+        .hero a {
+            animation: ingredientDrop 1.4s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2">
+                <img src="https://via.placeholder.com/50" alt="OZSUT Logo" class="h-10 w-10 rounded-full animate-chef-hat">
+                <span class="text-2xl font-bold text-yellow-600 font-serif">OZSUT</span>
+            </a>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="menu-item relative text-gray-800 hover:text-yellow-600 transition duration-300 animate-menu-item">Home</a>
+                <a href="#about" class="menu-item relative text-gray-800 hover:text-yellow-600 transition duration-300 animate-menu-item">About</a>
+                <a href="#menu" class="menu-item relative text-gray-800 hover:text-yellow-600 transition duration-300 animate-menu-item">Menu</a>
+                <a href="#gallery" class="menu-item relative text-gray-800 hover:text-yellow-600 transition duration-300 animate-menu-item">Gallery</a>
+                <a href="#contact" class="menu-item relative text-gray-800 hover:text-yellow-600 transition duration-300 animate-menu-item">Contact</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <a href="https://instagram.com/yourusername" target="_blank" class="text-gray-800 hover:text-yellow-600">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+                <a href="https://facebook.com/yourusername" target="_blank" class="text-gray-800 hover:text-yellow-600">
+                    <i class="fab fa-facebook text-xl"></i>
+                </a>
+                <button class="md:hidden text-gray-800 focus:outline-none" id="menu-toggle">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-white w-full px-4 py-2 shadow-md" id="mobile-menu">
+            <div class="flex flex-col space-y-3">
+                <a href="#home" class="block py-2 text-gray-800 hover:text-yellow-600">Home</a>
+                <a href="#about" class="block py-2 text-gray-800 hover:text-yellow-600">About</a>
+                <a href="#menu" class="block py-2 text-gray-800 hover:text-yellow-600">Menu</a>
+                <a href="#gallery" class="block py-2 text-gray-800 hover:text-yellow-600">Gallery</a>
+                <a href="#contact" class="block py-2 text-gray-800 hover:text-yellow-600">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero min-h-screen flex items-center justify-center text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 font-serif">OZSUT</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Experience the authentic flavors of Azerbaijan and Turkey in every bite</p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <a href="#menu" class="bg-yellow-600 hover:bg-yellow-700 text-white px-8 py-3 rounded-full font-semibold transition duration-300">View Menu</a>
+                <a href="#contact" class="border-2 border-white hover:bg-white hover:text-black text-white px-8 py-3 rounded-full font-semibold transition duration-300">Reservations</a>
+            </div>
+        </div>
+        <a href="#about" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white text-4xl floating-btn">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-serif">Our Story</h2>
+                <div class="w-20 h-1 bg-yellow-600 mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Restaurant Interior" class="rounded-lg shadow-xl w-full h-auto">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Bringing the Taste of Azerbaijan & Turkey to Your Table</h3>
+                    <p class="text-gray-600 mb-4">Founded in 2015, OZSUT is a culinary bridge between the rich traditions of Azerbaijani and Turkish cuisine. Our name, meaning "unique taste" in Azerbaijani, reflects our commitment to delivering authentic flavors with a modern twist.</p>
+                    <p class="text-gray-600 mb-6">Our chefs, trained in both culinary traditions, use only the freshest ingredients and traditional cooking methods to create dishes that tell the story of these two great cultures.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center">
+                            <div class="bg-yellow-100 p-3 rounded-full mr-3">
+                                <i class="fas fa-utensils text-yellow-600"></i>
+                            </div>
+                            <span class="font-medium">Authentic Recipes</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-yellow-100 p-3 rounded-full mr-3">
+                                <i class="fas fa-leaf text-yellow-600"></i>
+                            </div>
+                            <span class="font-medium">Fresh Ingredients</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-yellow-100 p-3 rounded-full mr-3">
+                                <i class="fas fa-heart text-yellow-600"></i>
+                            </div>
+                            <span class="font-medium">Passionate Chefs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-serif">Our Menu</h2>
+                <div class="w-20 h-1 bg-yellow-600 mx-auto"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-4">Discover the rich flavors of our carefully curated menu, blending the best of Azerbaijani and Turkish culinary traditions.</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-8 mb-12">
+                <button class="menu-category px-6 py-2 rounded-full bg-yellow-600 text-white font-medium">All</button>
+                <button class="menu-category px-6 py-2 rounded-full border border-gray-300 hover:bg-yellow-600 hover:text-white hover:border-yellow-600 font-medium transition duration-300">Starters</button>
+                <button class="menu-category px-6 py-2 rounded-full border border-gray-300 hover:bg-yellow-600 hover:text-white hover:border-yellow-600 font-medium transition duration-300">Main Courses</button>
+                <button class="menu-category px-6 py-2 rounded-full border border-gray-300 hover:bg-yellow-600 hover:text-white hover:border-yellow-600 font-medium transition duration-300">Desserts</button>
+                <button class="menu-category px-6 py-2 rounded-full border border-gray-300 hover:bg-yellow-600 hover:text-white hover:border-yellow-600 font-medium transition duration-300">Drinks</button>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Dish 1 -->
+                <div class="dish-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1488&q=80" alt="Dolma" class="w-full h-48 object-cover animate-cooking">
+                        <div class="absolute top-0 left-0 right-0 h-10 animate-steam"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Dolma</h3>
+                            <span class="text-yellow-600 font-bold">$12.99</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Traditional Azerbaijani stuffed grape leaves with minced lamb, rice, and aromatic herbs.</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-star text-yellow-500 mr-1"></i>
+                            <span>4.9 (128)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dish 2 -->
+                <div class="dish-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Kebab" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Adana Kebab</h3>
+                            <span class="text-yellow-600 font-bold">$16.99</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Authentic Turkish minced lamb kebab with red peppers, grilled to perfection.</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-star text-yellow-500 mr-1"></i>
+                            <span>4.8 (156)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dish 3 -->
+                <div class="dish-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Plov" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Azerbaijani Plov</h3>
+                            <span class="text-yellow-600 font-bold">$14.99</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Fragrant saffron rice with chestnuts, dried fruits, and tender lamb.</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-star text-yellow-500 mr-1"></i>
+                            <span>5.0 (98)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dish 4 -->
+                <div class="dish-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1527&q=80" alt="Baklava" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Baklava</h3>
+                            <span class="text-yellow-600 font-bold">$8.99</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Layers of flaky pastry with chopped nuts, sweetened with syrup or honey.</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-star text-yellow-500 mr-1"></i>
+                            <span>4.9 (210)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dish 5 -->
+                <div class="dish-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1519676867240-f03562e64548?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Lahmacun" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Lahmacun</h3>
+                            <span class="text-yellow-600 font-bold">$10.99</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Turkish pizza with thin crust topped with minced meat, vegetables, and herbs.</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-star text-yellow-500 mr-1"></i>
+                            <span>4.7 (142)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dish 6 -->
+                <div class="dish-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1601050690771-9a002c7c9a1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Dovga" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Dovga</h3>
+                            <span class="text-yellow-600 font-bold">$7.99</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Traditional Azerbaijani yogurt soup with herbs, rice, and chickpeas.</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-star text-yellow-500 mr-1"></i>
+                            <span>4.6 (87)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block border-2 border-yellow-600 text-yellow-600 hover:bg-yellow-600 hover:text-white px-8 py-3 rounded-full font-semibold transition duration-300">View Full Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-serif">Gallery</h2>
+                <div class="w-20 h-1 bg-yellow-600 mx-auto"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-4">A visual journey through our culinary creations and restaurant ambiance.</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+                    <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Food 1" class="w-full h-full object-cover transition duration-300 hover:scale-110 animate-plate-spin">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+                    <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1498&q=80" alt="Food 2" class="w-full h-full object-cover transition duration-300 hover:scale-110">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+                    <img src="https://images.unsplash.com/photo-1601050690771-9a002c7c9a1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Food 3" class="w-full h-full object-cover transition duration-300 hover:scale-110">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+                    <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1527&q=80" alt="Food 4" class="w-full h-full object-cover transition duration-300 hover:scale-110">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+                    <img src="https://images.unsplash.com/photo-1519676867240-f03562e64548?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Food 5" class="w-full h-full object-cover transition duration-300 hover:scale-110">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+                    <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Food 6" class="w-full h-full object-cover transition duration-300 hover:scale-110">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+                    <img src="https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1488&q=80" alt="Food 7" class="w-full h-full object-cover transition duration-300 hover:scale-110">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+                    <img src="https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Food 8" class="w-full h-full object-cover transition duration-300 hover:scale-110">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-serif">What Our Guests Say</h2>
+                <div class="w-20 h-1 bg-yellow-600 mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-8 rounded-lg shadow-md hover:animate-cooking transition duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"The Adana Kebab at OZSUT is the most authentic I've had outside of Turkey. The flavors took me right back to my grandmother's kitchen in Istanbul."</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800">Sarah Johnson</h4>
+                            <p class="text-gray-500 text-sm">Food Blogger</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"As someone from Baku, I can say the Azerbaijani Plov here is made with love and authenticity. The saffron aroma is perfect!"</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Elvin Mammadov" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800">Elvin Mammadov</h4>
+                            <p class="text-gray-500 text-sm">Regular Customer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star-half-alt text-yellow-500"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"The atmosphere is wonderful and the service is excellent. We tried several dishes and each was better than the last. Will definitely return!"</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Maria Rodriguez" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800">Maria Rodriguez</h4>
+                            <p class="text-gray-500 text-sm">First-time Visitor</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-serif">Contact Us</h2>
+                <div class="w-20 h-1 bg-yellow-600 mx-auto"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-4">We'd love to hear from you. Reserve a table or ask us anything.</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-600 focus:border-transparent" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-600 focus:border-transparent" placeholder="john@example.com">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-gray-700 font-medium mb-2">Phone Number</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-600 focus:border-transparent" placeholder="+1 (555) 123-4567">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-gray-700 font-medium mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-600 focus:border-transparent" placeholder="Reservation for 4 people">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-600 focus:border-transparent" placeholder="Your message here..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 animate-menu-item">Send Message</button>
+                    </form>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-gray-50 p-8 rounded-lg h-full">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">Visit Us</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-yellow-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-map-marker-alt text-yellow-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Location</h4>
+                                    <p class="text-gray-600">123 Culinary Street, Baku, Azerbaijan</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-yellow-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-phone-alt text-yellow-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Phone</h4>
+                                    <p class="text-gray-600">+994 12 345 67 89</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-yellow-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-envelope text-yellow-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Email</h4>
+                                    <p class="text-gray-600">info@ozsutrestaurant.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-yellow-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-clock text-yellow-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Opening Hours</h4>
+                                    <p class="text-gray-600">Monday - Friday: 11:00 AM - 10:00 PM</p>
+                                    <p class="text-gray-600">Saturday - Sunday: 10:00 AM - 11:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-bold text-gray-800 mb-4">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="https://instagram.com/yourusername" target="_blank" class="bg-gray-200 hover:bg-yellow-600 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition duration-300">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="https://facebook.com/yourusername" target="_blank" class="bg-gray-200 hover:bg-yellow-600 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition duration-300">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="bg-gray-200 hover:bg-yellow-600 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition duration-300">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="bg-gray-200 hover:bg-yellow-600 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition duration-300">
+                                    <i class="fab fa-tiktok"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <div class="h-96 w-full">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.428490145665!2d49.85175681535478!3d40.37719087936986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d079efb5163%3A0xc20aa51a5f0b5e01!2sBaku!5e0!3m2!1sen!2saz!4v1623251234567!5m2!1sen!2saz" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 font-serif">OZSUT</h3>
+                    <p class="text-gray-400">Bringing the authentic flavors of Azerbaijan and Turkey to your table since 2015.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-yellow-600 transition duration-300">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-yellow-600 transition duration-300">About Us</a></li>
+                        <li><a href="#menu" class="text-gray-400 hover:text-yellow-600 transition duration-300">Menu</a></li>
+                        <li><a href="#gallery" class="text-gray-400 hover:text-yellow-600 transition duration-300">Gallery</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-yellow-600 transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Opening Hours</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex justify-between">
+                            <span>Monday - Friday</span>
+                            <span>11:00 - 22:00</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Saturday</span>
+                            <span>10:00 - 23:00</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Sunday</span>
+                            <span>10:00 - 23:00</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe to our newsletter for updates and special offers.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 w-full rounded-l-lg focus:outline-none text-gray-800">
+                        <button type="submit" class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded-r-lg transition duration-300">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2023 OZSUT Restaurant. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="https://instagram.com/yourusername" target="_blank" class="text-gray-400 hover:text-yellow-600 transition duration-300">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://facebook.com/yourusername" target="_blank" class="text-gray-400 hover:text-yellow-600 transition duration-300">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-yellow-600 transition duration-300">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-yellow-600 transition duration-300">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="mt-4 text-center text-gray-500 text-sm">
+                <p>Designed with passion by <span class="text-yellow-600">Rafa Silva</span> and <span class="text-yellow-600">Yusai</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // Menu category filter (placeholder functionality)
+        document.querySelectorAll('.menu-category').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.menu-category').forEach(btn => {
+                    btn.classList.remove('bg-yellow-600', 'text-white', 'border-yellow-600');
+                    btn.classList.add('border-gray-300');
+                });
+                
+                // Add active class to clicked button
+                this.classList.add('bg-yellow-600', 'text-white', 'border-yellow-600');
+                this.classList.remove('border-gray-300');
+                
+                // In a real implementation, you would filter menu items here
+                console.log('Filtering by:', this.textContent.trim());
+            });
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeIn');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.dish-card, .gallery-item').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=YUSAI/ozsut" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
+</html>
